@@ -11,7 +11,7 @@ export default function VehicleDetail({ vehicle }: ICardProps) {
       <div className="pt-6">
         <div className="mt-6 object-center max-w-2xl sm:px-6 lg:max-w-7xl lg:gap-x-8 lg:px-8">
           <img
-            src={vehicle.details.image}
+            src={vehicle.details.image || "https://placehold.co/500x200?text=Vehicle image not found"}
             alt={vehicle.name}
             className="h-80 object-center m-auto"
           />
