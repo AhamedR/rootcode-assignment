@@ -94,7 +94,7 @@ export default function Biddings() {
                             {product.biddingAmount ? numberFormatter(product.details.price) : 0}
                           </p>
                           <p className="text-lg leading-6 text-gray-900">
-                            {product.biddingAmount ? numberFormatter(parseInt(product.biddingAmount)) : 0}
+                            {product.biddingAmount ? numberFormatter(product.biddingAmount) : 0}
                           </p>
                         </div>
                       </li>

@@ -22,7 +22,7 @@ function BidForm({ vehicle }: IBidFormProps) {
 
   const handleBiddingChange = (event: any) => {
     setIsActive(true)
-    setBiddingAmount(event.target.value)
+    setBiddingAmount(parseInt(event.target.value))
   }
 
   const handleSubmitBid = (event: React.FormEvent<HTMLFormElement>)  => {

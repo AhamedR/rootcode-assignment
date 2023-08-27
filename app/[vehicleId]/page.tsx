@@ -14,7 +14,6 @@ function VehicleDetails() {
   const vehicles = useAppSelector((state) => state.vehicleSlice.vehicles);
 
   const { vehicleId } = router;
-  console.log(router);
 
   useEffect(() => {
     vehicleId && findVehicle(vehicleId);

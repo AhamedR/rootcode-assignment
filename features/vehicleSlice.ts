@@ -57,7 +57,7 @@ const vehicleSlice = createSlice({
       }
 
       state.biddenVehicles.forEach((item) => {
-        total = parseInt(total) + parseInt((item.biddingAmount ?? 0));
+        total = total + (item.biddingAmount ?? 0);
       });
 
       state.totalBidding = total;
