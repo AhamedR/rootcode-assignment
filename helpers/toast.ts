@@ -1,4 +1,4 @@
-import { ToastOptions, toast } from "react-toastify"
+import { ToastOptions, toast } from "react-toastify";
 
 const options: ToastOptions<{}> | undefined = {
   position: "top-center",
@@ -9,17 +9,16 @@ const options: ToastOptions<{}> | undefined = {
   draggable: true,
   progress: 0,
   theme: "light",
-}
+};
 
-const notify = (message: string, status: string = 'success') => {
-  if (status === 'success') {
-    toast.success(message, options)
-  } else if (status === 'warning') {
-    toast.warning(message, options)
+const notify = (message: string, status: string = "success") => {
+  if (status === "success") {
+    toast.success(message, options);
+  } else if (status === "warning") {
+    toast.warning(message, options);
   } else {
-    toast.error(message, options)
+    toast.error(message, options);
   }
+};
 
-}
-
-export default notify
+export default notify;
