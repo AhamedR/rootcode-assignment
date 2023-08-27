@@ -1,13 +1,15 @@
-import { getHeaders } from "@/helpers/header";
-import IVehicle from "@/models/Vehicle";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+
+import IVehicle from "@/models/Vehicle";
+import { getHeaders } from "@/helpers/header";
 
 type InitialState = {
   loading: boolean;
   vehicles: IVehicle[];
   biddenVehicles: IVehicle[];
   totalBidding: number;
+  viewBiddings: boolean;
   error: string;
 };
 
@@ -20,6 +22,7 @@ const initialState: InitialState = {
   vehicles: [],
   biddenVehicles: [],
   totalBidding: 0,
+  viewBiddings: false,
   error: "",
 };
 
@@ -30,11 +33,7 @@ export const getVehicles = createAsyncThunk(
       vehicleBrand !== "All" ? `&details.brand=${vehicleBrand}` : "";
 
     return http
-      .get<IVehicle[]>(
-        `/vehicles?_page=${page}&_limit=5${brandFilter}`,
-        getHeaders()
-      )
-      .then((response) => response.data);
+      .get<IVehicle[]>(`/vehicles?_page=${page}&_limit=5${brandFilter}`,getHeaders()).then((response) => response.data);
   }
 );
 
@@ -46,23 +45,26 @@ const vehicleSlice = createSlice({
       const searchIndex = state.biddenVehicles.findIndex(
         (item) => item.id === action.payload.id
       );
-      let total = 0;
+      let total: number = 0;
 
       if (searchIndex >= 0) {
-        state.biddenVehicles[searchIndex].biddingAmount =
-          state.vehicles[searchIndex].biddingAmount;
+        state.biddenVehicles[searchIndex].biddingAmount = action.payload.biddingAmount;
       } else {
         action.payload.id &&
-          state.vehicles.push({
+          state.biddenVehicles.push({
             ...action.payload,
           });
       }
 
       state.biddenVehicles.forEach((item) => {
-        total = total + (item.biddingAmount || 0);
+        total = parseInt(total) + parseInt((item.biddingAmount ?? 0));
       });
 
       state.totalBidding = total;
+    },
+    viewBidding: (state) => {
+
+      state.viewBiddings = !state.viewBiddings;
     },
   },
   extraReducers: (builder) => {
@@ -86,4 +88,4 @@ const vehicleSlice = createSlice({
 });
 
 export default vehicleSlice.reducer;
-export const { bidVehicle } = vehicleSlice.actions;
+export const { bidVehicle, viewBidding } = vehicleSlice.actions;

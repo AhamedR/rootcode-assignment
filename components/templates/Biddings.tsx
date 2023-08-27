@@ -1,61 +1,32 @@
 "use client";
 
-import { Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState, useEffect } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { viewBidding } from "@/features/vehicleSlice";
+import { Dialog, Transition } from "@headlessui/react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
-const products = [
-  {
-    id: "1",
-    name: "T-Cross",
-    biddingAmount: 20000000,
-    details: {
-      currency: "LKR",
-      price: 20000000,
-      color: "#151D3B",
-      brand: "Volkswagen",
-      manufactureYear: "2018",
-      image:
-        "https://cdn.imagin.studio/getImage?angle=01&billingTag=web&customer=carwow&make=volkswagen&modelFamily=t-cross&modelVariant=estate&modelYear=2019&paintDescription=solid---pure-white+FFFFFF&paintId=30598&tailoring=carwow&width=800&zoomLevel=0&zoomType=fullscreen",
-      description: "Roomy small SUV with lots of kit",
-    },
-  },
-  {
-    id: "2",
-    name: "Taigo",
-    biddingAmount: 20000000,
-    details: {
-      currency: "LKR",
-      price: 10000000,
-      color: "#D82148",
-      brand: "Volkswagen",
-      manufactureYear: "2018",
-      image: "",
-      description: "Compact crossover coupe with a comfortable setup",
-    },
-  },
-  {
-    id: "11",
-    name: "TT Roadster",
-    biddingAmount: 20000000,
-    details: {
-      currency: "LKR",
-      price: 10200000,
-      color: "#90E0EF",
-      brand: "Audi",
-      manufactureYear: "2021",
-      image:
-        "https://cdn.imagin.studio/getImage?angle=01&billingTag=web&customer=carwow&make=audi&modelFamily=tt&modelVariant=roadster&modelYear=2006&paintDescription=pearl---glacier-blue+&paintId=47471&tailoring=carwow&width=800&zoomLevel=0&zoomType=fullscreen",
-      description: "Roomy small SUV with lots of kit",
-    },
-  },
-];
 export default function Biddings() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const show = useAppSelector((state) => state.vehicleSlice.viewBiddings);
+  const biddings = useAppSelector((state) => state.vehicleSlice.biddenVehicles);
+  const totalBidding = useAppSelector((state) => state.vehicleSlice.totalBidding);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    setOpen(show);
+  }, [show]);
+
+  const handleClose = () => {
+    console.log("test");
+
+    setOpen(false);
+    dispatch(viewBidding());
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-10" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -84,7 +55,7 @@ export default function Biddings() {
                   <button
                     type="button"
                     className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
-                    onClick={() => setOpen(false)}
+                    onClick={handleClose}
                   >
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -93,7 +64,7 @@ export default function Biddings() {
                     Your Biddings
                   </h2>
                   <ul role="list" className="divide-y divide-gray-100 w-full">
-                    {products.map((product) => (
+                    {biddings.map((product) => (
                       <li
                         key={product.id}
                         className="flex justify-between gap-x-6 py-5"
@@ -119,14 +90,18 @@ export default function Biddings() {
                             </p>
                           </div>
                         </div>
-                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                          <p className="text-sm leading-6 text-gray-900">
+                        <div className="shrink-0 sm:flex sm:flex-col sm:items-end">
+                          <p className="text-sm line-through leading-6 text-gray-700">
+                            {product.biddingAmount}
+                          </p>
+                          <p className="text-lg leading-6 text-gray-900">
                             {product.biddingAmount}
                           </p>
                         </div>
                       </li>
                     ))}
                   </ul>
+                  <h3 className="mt-3">Total Bidding: {totalBidding}</h3>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

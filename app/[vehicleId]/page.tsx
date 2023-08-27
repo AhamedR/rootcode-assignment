@@ -1,21 +1,40 @@
-import VehicleDetail from "@/components/templates/VehicleDetail";
+"use client";
 
-const vehicle = {
-  id: "13",
-  name: "Q2",
-  details: {
-    currency: "LKR",
-    price: 21000000,
-    color: "#19282F",
-    brand: "Audi",
-    manufactureYear: "2022",
-    image:
-      "https://cdn.imagin.studio/getImage?angle=01&billingTag=web&customer=carwow&make=audi&modelFamily=q2&modelVariant=estate&modelYear=2018&paintDescription=solid---quantum-grey+949494&paintId=33088&tailoring=carwow&width=800&zoomLevel=0&zoomType=fullscreen",
-    description: "Roomy small SUV with lots of kit",
-  },
-};
+import { useEffect, useState } from "react";
+import { useAppSelector } from "@/redux/hooks";
+import { useParams } from "next/navigation";
+
+import VehicleDetail from "@/components/templates/VehicleDetail";
+import IVehicle from "@/models/Vehicle";
+
 function VehicleDetails() {
-  return <VehicleDetail vehicle={vehicle} />;
+  const router = useParams();
+  const [selectedVehicle, setSelectedVehicle] = useState<IVehicle>();
+  const [isValid, setsValid] = useState(true);
+  const vehicles = useAppSelector((state) => state.vehicleSlice.vehicles);
+
+  const { vehicleId } = router;
+  console.log(router);
+
+  useEffect(() => {
+    vehicleId && findVehicle(vehicleId);
+  }, [vehicleId]);
+
+  const findVehicle = (id: string) => {
+    const searchIndex = vehicles.findIndex((vehicle) => vehicle.id === id);
+
+    if (searchIndex >= 0) {
+      setSelectedVehicle(vehicles[searchIndex]);
+    } else {
+      setsValid(false);
+    }
+  };
+
+  if (isValid && selectedVehicle) {
+    return <VehicleDetail vehicle={selectedVehicle} />;
+  } else {
+    return <p className="h-full ">Invalid Vehicle</p>;
+  }
 }
 
 export default VehicleDetails;

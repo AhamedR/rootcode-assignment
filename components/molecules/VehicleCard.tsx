@@ -1,5 +1,6 @@
 import IVehicle from "@/models/Vehicle";
 import Link from "next/link";
+import BidForm from "./BidForm";
 
 interface ICardProps {
   vehicle: IVehicle;
@@ -11,7 +12,7 @@ export default function Card({ vehicle }: ICardProps) {
       key={vehicle.id}
       className="group relative rounded-md p-4 ring-1 ring-gray-200 bg-gray-50"
     >
-      <Link href={"/asd"}>
+      <Link href={`/${vehicle.id}`}>
         <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 ">
           <img
             src={
@@ -49,36 +50,7 @@ export default function Card({ vehicle }: ICardProps) {
         </p>
       </div>
       <div className="py-2 divide-x divide-blue-950">
-        <form action="#" method="POST">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-6 ">
-            <div>
-              <label
-                htmlFor="bid-amount"
-                className="block text-sm font-semibold leading-6 text-gray-900"
-              >
-                Your Bid
-              </label>
-              <div className="mt-2.5">
-                <input
-                  placeholder="100000"
-                  type="number"
-                  name="bid-amount"
-                  id="bid-amount"
-                  min={0}
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-              <div className="mt-1">
-                <button
-                  type="submit"
-                  className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Bid
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
+        <BidForm vehicle={vehicle}/>
       </div>
     </div>
   );
