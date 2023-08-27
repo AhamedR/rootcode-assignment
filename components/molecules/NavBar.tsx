@@ -6,14 +6,14 @@ function NavBar() {
           CarBid
         </a>
         <div
-          className="hidden md:flex justify-between items-center w-full md:w-auto md:order-1"
+          className="md:flex justify-between items-center w-full md:w-auto md:order-1"
           id="mobile-menu-3"
         >
           <ul className="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
             <li>
               <a
                 href="#"
-                className="bg-blue-700 md:bg-transparent text-white block pl-3 pr-4 py-2 md:text-blue-700 md:p-0 rounded"
+                className="bg-blue-700 bg-slate-300 text-white block pl-3 pr-4 py-2 text-blue-700 p-0 rounded"
                 aria-current="page"
               >
                 Biddings
