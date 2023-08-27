@@ -1,10 +1,10 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-interface IItems {
+export interface IItems {
   id: string;
   label: string;
 }
@@ -12,14 +12,19 @@ interface IItems {
 interface SelectProps {
   items: IItems[];
   label: string;
+  onChange: (value: IItems) => void;
 }
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Select({ items, label }: SelectProps) {
+export default function Select({ items, label, onChange }: SelectProps) {
   const [selected, setSelected] = useState(items[0]);
+
+  useEffect(() => {
+    onChange(selected);
+  }, [selected]);
 
   return (
     <Listbox value={selected} onChange={setSelected}>

@@ -100,10 +100,10 @@ export default function Biddings() {
                       >
                         <div className="flex min-w-0 gap-x-4">
                           <img
-                            className="h-20 w-20 flex-none bg-gray-50"
+                            className="h-20 flex-none bg-gray-50"
                             src={
                               product.details.image ||
-                              "https://placehold.co/100x100?text=Image not found"
+                              "https://placehold.co/200x125?text=Image not found"
                             }
                             alt=""
                           />

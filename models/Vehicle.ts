@@ -12,4 +12,5 @@ export default interface IVehicle {
   id :string
   name: string
   details: IVehicleDetails
+  biddingAmount?: number
 }
