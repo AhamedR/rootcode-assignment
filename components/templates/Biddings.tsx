@@ -5,6 +5,7 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 import { viewBidding } from "@/features/vehicleSlice";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { numberFormatter } from "@/helpers/formatter";
 
 export default function Biddings() {
   const [open, setOpen] = useState(false);
@@ -18,8 +19,6 @@ export default function Biddings() {
   }, [show]);
 
   const handleClose = () => {
-    console.log("test");
-
     setOpen(false);
     dispatch(viewBidding());
   };
@@ -92,16 +91,16 @@ export default function Biddings() {
                         </div>
                         <div className="shrink-0 sm:flex sm:flex-col sm:items-end">
                           <p className="text-sm line-through leading-6 text-gray-700">
-                            {product.biddingAmount}
+                            {product.biddingAmount ? numberFormatter(product.details.price) : 0}
                           </p>
                           <p className="text-lg leading-6 text-gray-900">
-                            {product.biddingAmount}
+                            {product.biddingAmount ? numberFormatter(parseInt(product.biddingAmount)) : 0}
                           </p>
                         </div>
                       </li>
                     ))}
                   </ul>
-                  <h3 className="mt-3">Total Bidding: {totalBidding}</h3>
+                  <h3 className="mt-3">Total Bidding: {numberFormatter(totalBidding)}</h3>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

@@ -1,5 +1,6 @@
 import IVehicle from "@/models/Vehicle";
 import BidForm from "../molecules/BidForm";
+import { numberFormatter } from "@/helpers/formatter";
 
 interface ICardProps {
   vehicle: IVehicle;
@@ -31,7 +32,7 @@ export default function VehicleDetail({ vehicle }: ICardProps) {
             <h2 className="sr-only">vehicle information</h2>
             <p>Price</p>
             <p className="text-3xl tracking-tight text-gray-900">
-              {vehicle.details.price}
+              {numberFormatter(vehicle.details.price)}
             </p>
             <BidForm vehicle={vehicle} />
           </div>

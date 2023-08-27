@@ -42,7 +42,7 @@ export default function CarCatalog() {
   const dispatch = useAppDispatch();
   const vehicles = useAppSelector((state) => state.vehicleSlice.vehicles);
 
-  const fetchVehicles = () => {
+  const fetchVehicles = (page: number = 1) => {
     dispatch(getVehicles({ page, vehicleBrand }));
   };
 
@@ -51,11 +51,11 @@ export default function CarCatalog() {
   }, [dispatch]);
 
   useEffect(() => {
-    fetchVehicles();
+    fetchVehicles(page);
   }, [page]);
 
   useEffect(() => {
-    fetchVehicles();
+    fetchVehicles(1);
   }, [vehicleBrand]);
 
   const handleNextPage = () => {

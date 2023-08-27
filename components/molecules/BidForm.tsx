@@ -8,6 +8,7 @@ import IVehicle from "@/models/Vehicle";
 import { validateBidding } from "@/helpers/validateForms";
 import { useAppDispatch } from "@/redux/hooks";
 import { bidVehicle } from "@/features/vehicleSlice";
+import { numberFormatter } from "@/helpers/formatter";
 
 interface IBidFormProps {
   vehicle: IVehicle;
@@ -47,7 +48,7 @@ function BidForm({ vehicle }: IBidFormProps) {
       </label>
       <div className="mt-2.5">
         <input
-          placeholder="100000"
+          placeholder={numberFormatter(vehicle.details.price + 1000)}
           type="number"
           name="bid-amount"
           id="bid-amount"

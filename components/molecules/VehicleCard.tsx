@@ -1,6 +1,7 @@
 import IVehicle from "@/models/Vehicle";
 import Link from "next/link";
 import BidForm from "./BidForm";
+import { numberFormatter } from "@/helpers/formatter";
 
 interface ICardProps {
   vehicle: IVehicle;
@@ -46,7 +47,7 @@ export default function Card({ vehicle }: ICardProps) {
       <div className="py-2">
         <p>Final Bid</p>
         <p className="text-sm font-medium text-gray-900">
-          {vehicle.details.price}
+          {numberFormatter(vehicle.details.price)}
         </p>
       </div>
       <div className="py-2 divide-x divide-blue-950">
