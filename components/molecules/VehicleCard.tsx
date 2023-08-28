@@ -8,8 +8,6 @@ interface ICardProps {
 }
 
 export default function Card({ vehicle }: ICardProps) {
-  console.log(vehicle.details.color);
-  
   return (
     <div
       key={vehicle.id}
