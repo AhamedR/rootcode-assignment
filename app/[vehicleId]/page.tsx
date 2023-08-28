@@ -1,24 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { useAppSelector } from "@/redux/hooks";
 import { useParams } from "next/navigation";
 
 import VehicleDetail from "@/components/templates/VehicleDetail";
 import IVehicle from "@/models/Vehicle";
 
-type IVehicleParams = {
-  vehicleId?: string
-}
-
 function VehicleDetails() {
-  const {vehicleId} = useParams<{vehicleId?: string}>();
+  const {vehicleId} = useParams();
   const [selectedVehicle, setSelectedVehicle] = useState<IVehicle>();
   const [isValid, setsValid] = useState(true);
   const vehicles = useAppSelector((state) => state.vehicleSlice.vehicles);
 
   useEffect(() => {
-    vehicleId && findVehicle(vehicleId);
+    vehicleId && findVehicle(vehicleId.toString());
   }, [vehicleId]);
 
   const findVehicle = (id: string) => {

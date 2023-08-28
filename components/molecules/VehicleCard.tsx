@@ -8,6 +8,8 @@ interface ICardProps {
 }
 
 export default function Card({ vehicle }: ICardProps) {
+  console.log(vehicle.details.color);
+  
   return (
     <div
       key={vehicle.id}
@@ -30,9 +32,7 @@ export default function Card({ vehicle }: ICardProps) {
               <span aria-hidden="true" className="" />
               {vehicle.name}
             </h3>
-            <p className="mt-1 text-sm text-gray-500">
-              {vehicle.details.color}
-            </p>
+            <div style={{ backgroundColor: `${vehicle.details.color}` }} className={`w-12 h-5 mt-2 rounded-lg`}/>
           </div>
           <div>
             <p className="mt-1 text-sm text-gray-500">
