@@ -7,13 +7,15 @@ import { useParams } from "next/navigation";
 import VehicleDetail from "@/components/templates/VehicleDetail";
 import IVehicle from "@/models/Vehicle";
 
+type IVehicleParams = {
+  vehicleId?: string
+}
+
 function VehicleDetails() {
-  const router = useParams();
+  const {vehicleId} = useParams<{vehicleId?: string}>();
   const [selectedVehicle, setSelectedVehicle] = useState<IVehicle>();
   const [isValid, setsValid] = useState(true);
   const vehicles = useAppSelector((state) => state.vehicleSlice.vehicles);
-
-  const { vehicleId } = router;
 
   useEffect(() => {
     vehicleId && findVehicle(vehicleId);
